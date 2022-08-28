@@ -1,5 +1,6 @@
 package com.stsh.urlshorter.controller;
 
+import com.stsh.urlshorter.model.Link;
 import com.stsh.urlshorter.service.LinkService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,13 +32,25 @@ public class LinkControllerTest {
                 .post()
                 .uri("/link")
                 .contentType(MediaType.APPLICATION_JSON)
-                .syncBody("{\"link\":\"https://spring.io\"}")
+                .bodyValue("{\"link\":\"https://spring.io\"}")
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
                 .expectBody()
                 .jsonPath("$.shortenedLink")
                 .value(val -> assertThat(val).isEqualTo("http://localhost:8080/aass2211"));
+    }
+
+    @Test
+    public void redirectToOriginalLink() {
+        when(linkService.getOriginalLink("aaa21123")).thenReturn(Mono.just(new Link("https://spring.io", "aaa21123")));
+        webTestClient.get()
+                .uri("/aaa21123")
+                .exchange()
+                .expectStatus()
+                .isPermanentRedirect()
+                .expectHeader()
+                .value("Location", location -> assertThat(location).isEqualTo("https://spring.io"));
     }
 
 }

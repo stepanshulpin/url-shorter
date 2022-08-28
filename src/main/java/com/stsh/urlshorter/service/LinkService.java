@@ -25,4 +25,7 @@ public class LinkService {
                 .map(result -> baseUrl + result.getKey());
     }
 
+    public Mono<Link> getOriginalLink(String key) {
+        return linkRepository.findByKey(key);
+    }
 }
