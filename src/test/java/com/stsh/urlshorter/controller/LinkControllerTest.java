@@ -31,7 +31,7 @@ public class LinkControllerTest {
                 .post()
                 .uri("/link")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue("{\"link\":\"https://spring.io\"}")
+                .syncBody("{\"link\":\"https://spring.io\"}")
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
