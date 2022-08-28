@@ -65,6 +65,7 @@
             <groupId>com.playtika.testcontainers</groupId>
             <artifactId>embedded-redis</artifactId>
             <version>2.2.6</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
