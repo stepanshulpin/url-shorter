@@ -1,12 +1,10 @@
 package com.stsh.urlshorter.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class CreateLinkResponse {
 
-    private String shortenedLink;
+    String shortenedLink;
 
 }
